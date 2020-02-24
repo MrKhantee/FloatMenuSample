@@ -13,29 +13,18 @@
 
 package com.yw.game.floatmenu.demo;
 
-import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.yw.game.floatmenu.FloatItem;
-import com.yw.game.floatmenu.FloatLogoMenu;
-import com.yw.game.floatmenu.FloatMenuView;
-import com.yw.game.floatmenu.customfloat.BaseFloatDialog;
-
-import java.util.ArrayList;
+import android.animation.*;
+import android.app.*;
+import android.graphics.*;
+import android.os.*;
+import android.text.*;
+import android.view.*;
+import android.view.animation.*;
+import android.webkit.*;
+import android.widget.*;
+import com.yw.game.floatmenu.*;
+import com.yw.game.floatmenu.customfloat.*;
+import java.util.*;
 
 public class MainActivity extends Activity {
 
@@ -44,9 +33,9 @@ public class MainActivity extends Activity {
     ArrayList<FloatItem> itemList = new ArrayList<>();
     private Activity mActivity;
 
-    String HOME = "首页";
-    String FEEDBACK = "客服";
-    String MESSAGE = "消息";
+    String HOME = "Home";
+    String FEEDBACK = "Customer service";
+    String MESSAGE = "News";
 
     String[] MENU_ITEMS = {HOME, FEEDBACK, MESSAGE};
 
@@ -59,13 +48,23 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+		// 24 FEB 2020
+		webviewSetup();
+		
         mActivity = this;
         for (int i = 0; i < menuIcons.length; i++) {
             itemList.add(new FloatItem(MENU_ITEMS[i], 0x99000000, 0x99000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
         }
     }
 
+	private WebView mWebView;
+	private void webviewSetup()
+	{
+		mWebView = (WebView)findViewById(R.id.webview);
+		mWebView.setWebViewClient(new WebViewClient());
+		mWebView.getSettings().setJavaScriptEnabled(true);	
+		mWebView.loadUrl("http://www.google.com");		
+	}
 
     @Override
     protected void onResume() {
@@ -121,12 +120,12 @@ public class MainActivity extends Activity {
                 linearLayout.setGravity(Gravity.CENTER);
 
                 TextView textView = new TextView(mActivity);
-                textView.setText("左边");
+                textView.setText("left");
 
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mActivity, "左边的菜单被点击了", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "The menu on the left is clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
                 ImageView imageView = new ImageView(mActivity);
@@ -148,11 +147,11 @@ public class MainActivity extends Activity {
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 linearLayout.setGravity(Gravity.CENTER);
                 TextView textView = new TextView(mActivity);
-                textView.setText("右边");
+                textView.setText("right");
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mActivity, "右边的菜单被点击了", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "The menu on the right was clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
 

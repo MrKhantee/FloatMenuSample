@@ -3,10 +3,7 @@
           package="com.yw.game.floatmenu">
 
     <application android:allowBackup="true"
-                 android:label="@string/app_name"
-                 android:supportsRtl="true"
-    >
-
+                 android:label="@string/app_name" >
     </application>
 
 </manifest>
